@@ -1,0 +1,12 @@
+  apiVersio: "v1",
+  kind: Namespace
+  metadata:
+    name: student1
+    labels: student1
+---
+  apiVersio: "v1",
+  kind: Namespace
+  metadata:
+    name: student2
+    labels: student2
+---

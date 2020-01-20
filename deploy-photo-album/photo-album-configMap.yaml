@@ -1,0 +1,11 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: photo-album-configmap
+data:
+  DB_NAME: <CREATED_DB_NAME>
+  MONGO_SERVER: mongodb://<POD_NAME>:27017
+  ecs_endpoint_url: https://object.ecstestdrive.com
+  ecs_access_key_id:
+  ecs_secret_key:
+  ecs_bucket_name:

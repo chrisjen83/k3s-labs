@@ -1,0 +1,52 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: photo-album-configmap
+data:
+  DB_NAME: <CREATED_DB_NAME>
+  MONGO_SERVER: mongodb://<POD_NAME>:27017
+  ecs_endpoint_url: https://object.ecstestdrive.com
+  ecs_access_key_id:
+  ecs_secret_key:
+  ecs_bucket_name:
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: photo-album
+  namespace:
+  labels:
+    app: album
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5000
+  selector:
+    app: album
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: photo-album
+  namespace:
+  labels:
+    app: album
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: album
+  template:
+    metadata:
+      labels:
+        app: album
+    spec:
+      containers:
+      - name: photo-album
+        image: chrisjen83/photo_album-arch:v3
+        imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: photo-album-configmap
+        ports:
+        - containerPort: 5000
