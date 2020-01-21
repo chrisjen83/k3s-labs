@@ -1,0 +1,16 @@
+{% extends 'base_1.html' %}
+{% set active_page = 'debug' %}
+{% block header %}
+<h1>{% block title %}Debug{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div>
+{% for key,value in data.items() %}
+<h1>{{ key }}</h1>
+<pre>
+{{ value }}
+</pre>
+{% endfor %}
+</div>
+{% endblock %}

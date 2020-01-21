@@ -1,0 +1,65 @@
+{%-
+  set navigation_menu = [
+    ('Home', 'home', url_for('home')),
+    ('Configuration', 'config', url_for('configuration'))
+  ] -%}
+{%- set active_nav_item = active_page|default('home') -%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}{% endblock %} - ECS Metadata Search</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{ url_for('static', filename='apple-touch-icon-57x57.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ url_for('static', filename='apple-touch-icon-114x114.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ url_for('static', filename='apple-touch-icon-72x72.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url_for('static', filename='apple-touch-icon-144x144.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{{ url_for('static', filename='apple-touch-icon-60x60.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ url_for('static', filename='apple-touch-icon-120x120.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{{ url_for('static', filename='apple-touch-icon-76x76.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ url_for('static', filename='apple-touch-icon-152x152.png') }}"/>
+    <link rel="icon" sizes="196x196" type="image/png" href="{{ url_for('static', filename='favicon-196x196.png') }}"/>
+    <link rel="icon" sizes="96x96" type="image/png" href="{{ url_for('static', filename='favicon-96x96.png') }}"/>
+    <link rel="icon" sizes="32x32" type="image/png" href="{{ url_for('static', filename='favicon-32x32.png') }}"/>
+    <link rel="icon" sizes="16x16" type="image/png" href="{{ url_for('static', filename='favicon-16x16.png') }}"/>
+    <link rel="icon" sizes="128x128" type="image/png" href="{{ url_for('static', filename='favicon-128.png') }}"/>
+    <meta name="application-name" content="ECS Metadata Search"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="{{ url_for('static', filename='mstile-144x144.png') }}"/>
+    <meta name="msapplication-square70x70logo" content="{{ url_for('static', filename='mstile-70x70.png') }}"/>
+    <meta name="msapplication-square150x150logo" content="{{ url_for('static', filename='mstile-150x150.png') }}"/>
+    <meta name="msapplication-wide310x150logo" content="{{ url_for('static', filename='mstile-310x150.png') }}"/>
+    <meta name="msapplication-square310x310logo" content="{{ url_for('static', filename='mstile-310x310.png') }}"/>
+  </head>
+  <body>
+    <nav>
+      <h1>ECS Metadata Search</h1>
+      <div>
+        <ul id="navigation">
+          {%- for caption, index, href in navigation_menu %}
+          <li class="{% if index == active_page %}active{% endif %}"><a href="{{ href|e }}">{{ caption|e }}</a></li>
+          {%- endfor %}
+        </ul>
+      </div>
+      <div style="clear:both"></div>
+    </nav>
+    <section class="content">
+      <header>
+        {%- block header %}{%- endblock %}
+      </header>
+      {%- with messages = get_flashed_messages(with_categories=true) %}
+      {%- if messages %}
+      <ul class="flash">
+        {% for category, message in messages -%}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor -%}
+      </ul>
+      {%- endif %}
+      {%- endwith %}
+      {%- block content %}{%- endblock %}
+    </section>
+    <footer>
+      <div id="logo"><img src="{{ url_for('static', filename='logo.png') }}" alt="Company Logo"></div>
+      <span>(C) Copyright notice could be put here</span>
+    </footer>
+  </body>
+</html>

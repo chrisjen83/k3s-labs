@@ -1,0 +1,192 @@
+body {
+  font-family: Arial;
+  margin: 0;
+}
+
+nav {
+  background-color: black;
+  height: 85px;
+  width: 100%;
+  margin: 0 0 20px 0;
+  padding: 0;
+  position: fixed ! important;
+  top: 0;
+  overflow: hidden;
+  z-index: 100;
+}
+
+nav h1, header h1 {
+  text-align: center;
+}
+
+nav h1 {
+  margin: 0;
+  padding: 0.5em;
+  background-color: rgb(77, 99, 135);
+  color: white;
+}
+
+section {
+  margin: 85px 0 120px 0;
+}
+
+footer {
+  color: white;
+  text-align: center;
+  background-color: rgb(77, 99, 135);
+  height: 120px;
+  width: 100%;
+  margin: 20px 0 0 0;
+  padding: 0;
+  position: fixed ! important;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 100;
+}
+
+footer span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 120px;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th, td {
+  padding: .2em .4em;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+form label, form input, form select {
+  margin-left: .3em;
+  margin-right: .3em;
+  float: left;
+  display: block;
+}
+
+form label {
+  text-align: right;
+  width: 12em;
+}
+
+form input {
+}
+
+form div {
+  padding-top: .3em;
+  padding-bottom: .3em;
+  clear: both;
+}
+
+.content {
+  padding: .7em;
+}
+
+.rs1 td {
+  background-color: #dfdfdf;
+}
+
+.rs2 td {
+  background-color: #ffffff;
+}
+
+.expiration_time {
+  font-size: .8em;
+}
+
+.expiration_time::before {
+  content: '†';
+  vertical-align: super;
+}
+
+.dl_link a {
+  color: #50a846;
+  text-decoration: None;
+}
+
+.dl_link a:visited {
+  color: #50a846;
+  text-decoration: None;
+}
+
+.dl_link a:hover {
+  color: #6302d3;
+}
+
+ul.indent1 li{
+  padding-left: 1em;
+}
+
+#logo {
+  float: right;
+  position: absolute;
+  right: 10px;
+  margin: 10px 0 10px 10px;
+}
+
+#logo img {
+  height: 100px;
+}
+
+#navigation {
+  text-align: center;
+}
+
+#navigation li {
+  float: left;
+  padding: 8px 16px;
+}
+
+#navigation li a {
+  color: white;
+  text-decoration: None;
+}
+
+#navigation li.active {
+  color: white;
+  text-decoration: None;
+  background-color: gray;
+}
+
+#navigation li:hover {
+  color: white;
+  text-decoration: None;
+  background-color: #afbbce;
+}
+
+#metasearch {
+  float: left;
+  margin: 0 auto;
+  width: 50%;
+}
+
+#metasearch li input, #metasearch li label {
+  display: inline;
+  float: none;
+}
+
+#status {
+  float: left;
+  width: 30em;
+}
+
+#search_results {
+  padding-top: 1em;
+  clear: both;
+}
+
+div#results_wrapper{
+  overflow: x-auto;
+}
+
+table#results {
+  border-collapse: collapse;
+  border: 1px solid black;
+}

@@ -1,0 +1,16 @@
+# This file needs to be proper Python code
+HIDE_PASSWORD = False
+# ACCESS_ID: Use your user name or access ID
+ACCESS_ID = ''
+# ACCESS_KEY: Use your secret/password
+ACCESS_KEY = ''
+# TOKEN: If you have an ECS replication group string you can use that or leave as a .
+TOKEN = '.'
+# ENDPOINT: URL of your ECS. To use ECS Test Drive use the URL: https://object.ecstestdrive.com>
+ENDPOINT = ''
+# BUCET: Name of the bucket that has Metadata search enabled. Leave blank to configure via WebUI
+BUCKET = ''
+URL_TYPE = 'ecs'
+URL_EXPIRATION = 3600
+LISTEN_IP = '0.0.0.0'
+LISTEN_PORT = 5000

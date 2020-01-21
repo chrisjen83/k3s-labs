@@ -4,6 +4,10 @@
 import os
 from flask import Flask, render_template, request
 from models import get_photos, insert_photo, upload_photo
+from werkzeug import secure_filename
+import time
+
+HOSTNAME = os.environ.get("HOSTNAME", "")
 
 # Create a Flask instance
 app = Flask(__name__)
@@ -17,8 +21,12 @@ def home():
 # This route accepts GET and POST calls
 @app.route('/upload', methods=['POST'])
 def upload():
-    insert_photo(request)								                        # Call function in 'models.py' to process the database transaction
-    upload_photo(request.files['photo'])				                        # Call function in 'models.py' to upload photo to ECS
+    filename = secure_filename(request.files['photo'].filename)
+    uuid = "%s-%s-"%(time.time(), HOSTNAME)
+    filename = uuid + filename
+
+    insert_photo(request, filename)								                        # Call function in 'models.py' to process the database transaction
+    upload_photo(request.files['photo'], filename)				                        # Call function in 'models.py' to upload photo to ECS
                                                                                 # Return a page to inform the user of a successful upload
     return render_template('submit-photo.html')
 
