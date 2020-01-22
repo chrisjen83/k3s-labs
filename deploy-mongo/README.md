@@ -1,7 +1,3 @@
----
-typora-copy-images-to: ./
----
-
 # Deploy a Simple MongoDB Server
 
 [Return to Main Page](https://github.com/chrisjen83/k3s-labs)
