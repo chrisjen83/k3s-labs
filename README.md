@@ -6,6 +6,10 @@ This repository has been designed to guide you through basic steps of Kubernetes
 
 To get the most out of these tutorials please follow the below labs in order.
 
+#### Log into Cluster from lab machine
+
+[Kube config Set Namespace](https://github.com/chrisjen83/k3s-labs/tree/master/admin-namespace)
+
 #### Photo Album Application
 
 1. [Deploy a K3s Load Balancer](https://github.com/chrisjen83/k3s-labs/tree/master/deploy-metallb)

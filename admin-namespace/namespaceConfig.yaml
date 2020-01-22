@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: student1
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: student2
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: student3
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: student4
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: student5
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: student6
