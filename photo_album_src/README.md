@@ -9,3 +9,8 @@ To deploy the pre-made docker image in your Kubernetes environment follow the fo
 [Creating a MongoDB Server](https://github.com/chrisjen83/k3s-labs/tree/master/deploy-mongo)
 
 [Deploy Photo Album Image](https://github.com/chrisjen83/k3s-labs/tree/master/deploy-photo-album)
+
+_____________________________________________________________________________________________________________________________________________________________________________________________
+
+[Return to Main Page](https://github.com/chrisjen83/k3s-labs)
+

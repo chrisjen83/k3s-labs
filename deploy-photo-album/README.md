@@ -1,6 +1,8 @@
 # Deploy a Photo Album web page
 
-<img src="/home/christopher/git/k3s-labs/deploy-photo-album/1200px-Flask_logo.svg.png" alt="1200px-Flask_logo.svg" style="zoom:50%;" />
+[Return to Main Page](https://github.com/chrisjen83/k3s-labs)
+
+<img src="1200px-Flask_logo.svg.png" alt="1200px-Flask_logo.svg" style="zoom:50%;" />
 
 This lab will get you to deploy a basic Python Flask web server which will connect to a MongoDB Database which was setup in the [previous lab](https://github.com/chrisjen83/k3s-labs/tree/master/deploy-mongo#setup-mongodb-on-k3s-arm64). Most of the web sites coding is done for you but you will need to enter your database table name and ECS Test Drive S3 API credentials into a Kubernetes configMap file.
 
@@ -221,3 +223,5 @@ photo-album   LoadBalancer   10.43.134.178   192.168.11.30   5000:31604/TCP   25
 Look for the line which has the name of your app you deployed.  You will notice that the service **TYPE** is LoadBalancer and the **EXTERNAL-IP** is an address on the 192.168.11.x/24 network and the PORT is 5000.
 
 Great lets load this web page from your laptop and start uploading photo's to your album.  Your address will be http://192.168.11.x:5000
+
+[Return to Main Page](https://github.com/chrisjen83/k3s-labs)
