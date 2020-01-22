@@ -2,7 +2,7 @@
 
 [Return to Main Page](https://github.com/chrisjen83/k3s-labs)
 
-<img src="/home/christopher/Pictures/metallb-logo-5.png" alt="metallb-logo-5" style="zoom: 50%;" />
+<img src="metallb-logo-5.png" alt="metallb-logo-5" style="zoom: 50%;" />
 
 This tutorial will step you through setting up MetalLB which is a lightweight simple service load balancer for Kubernetes.  To read and the latest information follow this [link](https://metallb.universe.tf/) to the creators web site.
 

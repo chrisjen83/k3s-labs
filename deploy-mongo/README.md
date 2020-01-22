@@ -6,7 +6,7 @@ typora-copy-images-to: ./
 
 [Return to Main Page](https://github.com/chrisjen83/k3s-labs)
 
-<img src="/home/christopher/git/k3s-labs/deploy-mongo/MongoDB_Logo_FullColorBlack_RGB-4td3yuxzjs.png" alt="MongoDB_Logo_FullColorBlack_RGB-4td3yuxzjs" style="zoom: 25%;" />
+<img src="MongoDB_Logo_FullColorBlack_RGB-4td3yuxzjs.png" alt="MongoDB_Logo_FullColorBlack_RGB-4td3yuxzjs" style="zoom: 25%;" />
 
 This Lab will step you through the concepts of creating a single MongoDB Database inside a pod on K3s.  This pod will be encapsulated inside a Kubernetes StatefulSet and the database data will be stored on a PVC (Persistent Storage Claim) utilising local k3s storage.
 

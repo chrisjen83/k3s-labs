@@ -1,6 +1,6 @@
 # K3s Tutorials
 
-<img src="/home/christopher/git/k3s-labs/k3s_logo.png" alt="k3s_logo"  />
+<img src="k3s_logo.png" alt="k3s_logo"  />
 
 This repository has been designed to guide you through basic steps of Kubernetes and Docker. The environment which these tutorials are designed for is [Rancher K3s](https://k3s.io/) running on a 4 node Raspberry Pi 4 cluster. All docker images have been created in multi-arch for AMD64 and ARM64.
 
