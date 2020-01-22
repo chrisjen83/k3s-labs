@@ -122,7 +122,7 @@ spec:
 Now it is time to deploy **k3s-photo-album-deploy-v4.yaml** into your namespace and let the magic happen.
 
 ```
-# ckubectl apply -f k3s-photo-album-deploy-v4.yaml
+# kubectl apply -f k3s-photo-album-deploy-v4.yaml
 ```
 
 Once this has executed successfully lets take a look at what Kubernetes is doing.
@@ -137,7 +137,6 @@ Your output should look similar to below, take a look at the STATUS column.  Thi
 
 ```
 NAME                           READY   STATUS    RESTARTS   AGE
-mongo-0                        1/1     Running   0          23h
 photo-album-6dfdfb6597-cpfxk   1/1     Running   0          23h
 ```
 
