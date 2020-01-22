@@ -34,7 +34,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: mongo
-          image: mongo:4.0.14
+          image: mongo:4.0.14 #This is the latest MongoDB Image for ARM64
           command:
             - mongod
             - "--replSet"

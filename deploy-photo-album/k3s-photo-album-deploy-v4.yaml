@@ -2,35 +2,36 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: photo-album-configmap
+  namespace: <INSERT_YOUR_NAMESPACE_NAME>
 data:
   DB_NAME: <CREATED_DB_NAME>
-  MONGO_SERVER: mongodb://<POD_NAME>:27017
+  MONGO_SERVER: mongodb://<POD_NAME>.<NAMESPACE>.svc.cluster.local:27017   #Example mongodb://mongo.default.svc.cluster.local:27017
   ecs_endpoint_url: https://object.ecstestdrive.com
-  ecs_access_key_id:
-  ecs_secret_key:
-  ecs_bucket_name:
+  ecs_access_key_id: <YOUR_S3_ACCESS_KEY>
+  ecs_secret_key: <YOUR_S3_SECRET>
+  ecs_bucket_name: <BUCKET_NAME>
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: photo-album
-  namespace:
+  namespace: <INSERT_YOUR_NAMESPACE_NAME>
   labels:
-    app: album
+    app: <APPLICATION_NAME>
 spec:
   type: LoadBalancer
   ports:
   - port: 5000
   selector:
-    app: album
+    app: <APPLICATION_NAME>
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: photo-album
-  namespace:
+  namespace: <INSERT_YOUR_NAMESPACE_NAME>
   labels:
-    app: album
+    app: <APPLICATION_NAME>
 spec:
   replicas: 1
   selector:
@@ -39,11 +40,11 @@ spec:
   template:
     metadata:
       labels:
-        app: album
+        app: <APPLICATION_NAME>
     spec:
       containers:
       - name: photo-album
-        image: chrisjen83/photo_album-arch:v3
+        image: chrisjen83/photo_album-arch:v4
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
