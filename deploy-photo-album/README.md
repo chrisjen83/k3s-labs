@@ -11,21 +11,23 @@ This lab will get you to deploy a basic Python Flask web server which will conne
 You will need to create a database table in the MongoDB server which was previously deployed.  Lets log into MongoDB Pod via an interactive shell.
 
 ```
-kubectl --namespace default get pods
-kubectl --namespace default exec -it <MONGODB_POD_NAME> sh
+# kubectl --namespace default get pods
+# kubectl --namespace default exec -it <MONGODB_POD_NAME> sh
 ```
 
 Once you have a sh terminal inside the mongoDB Pod log into the mongoDB Server by typing mongo
 
 ```
-#mongo <ENTER>
+# mongo <ENTER>
 ```
 
 Once you have a **>** prompt type the following command to create a table to use with your web site. Replace <TABLE_NAME> with a name you wish to use appended with your student number at the end.
 
 ```
->use <TABLE_NAME>
-> exit
+rs0:PRIMARY> use <TABLE_NAME>
+switched to db <TABLE_NAME>
+rs0:PRIMARY> exit
+bye
 # exit
 ```
 
@@ -39,7 +41,7 @@ To deploy your web page application there are several components that need to be
 - [ ] **Service (LoadBalancer)** is need to be linked to your web page pod to expose Flasks port 5000 externally of the K3s cluster and assign an external IP address. If this was not created you could not access the web page on your computer.
 - [ ] **Deployment** which will define the desired state of your web server, link it to the Service and import the enviroment variables from the configMap.
 
-Use **k3s-photo-album-deploy-v4.yaml**, this YAML has all of the needed components listed above in the one file.  Kubernetes will read this file and configure your configMap, Service and Deploy your pod.
+Use **k3s-photo-album-deploy-v4.yaml** located in deploy-photo-album folder, this YAML has all of the needed components listed above in the one file.  Kubernetes will read this file and configure your configMap, Service and Deploy your pod.
 
 Lets get started, in the below code snippet when I use **< .. >** this means you will need to configure these settings with your details.
 
@@ -51,7 +53,7 @@ metadata:
   namespace: <INSERT_YOUR_NAMESPACE_NAME>
 data:
   DB_NAME: <CREATED_DB_ABLE_NAME>
-  MONGO_SERVER: mongodb://<POD_NAME>:27017
+  MONGO_SERVER: mongodb://<POD_NAME>.<NAMESPACE>.svc.cluster.local:27017
   ecs_endpoint_url: https://object.ecstestdrive.com
   ecs_access_key_id: <YOUR_S3_ACCESS_KEY>
   ecs_secret_key: <YOUR_S3_SECRET>
@@ -120,7 +122,7 @@ spec:
 Now it is time to deploy **k3s-photo-album-deploy-v4.yaml** into your namespace and let the magic happen.
 
 ```
-kubectl apply -f k3s-photo-album-deploy-v4.yaml
+# ckubectl apply -f k3s-photo-album-deploy-v4.yaml
 ```
 
 Once this has executed successfully lets take a look at what Kubernetes is doing.
@@ -128,7 +130,7 @@ Once this has executed successfully lets take a look at what Kubernetes is doing
 First lets see if Kubernetes has created a pod, to do this issue the following command.
 
 ```
-kubectl  get pods
+# kubectl  get pods
 ```
 
 Your output should look similar to below, take a look at the STATUS column.  This will tell you what is happening inside the pod.
@@ -142,7 +144,7 @@ photo-album-6dfdfb6597-cpfxk   1/1     Running   0          23h
 But to really understand what is happening we need to describe the pod, so lets do that.
 
 ```
-kubectl describe pods <PHOTO-ALBUM_POD_NAME>
+# kubectl describe pods <PHOTO-ALBUM_POD_NAME>
 ```
 
  You will receive an output similar to below.
@@ -209,13 +211,11 @@ At this point I am assuming your pod has started, now you might ask what is the 
 Lets take a look at that service we created inside our deployment YAML.  Type the below command to find out.
 
 ```
-kubectl <YOUR_NAMESPACE> get svc
+# kubectl get svc
 ```
 
 ```
 NAME          TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)          AGE
-kubernetes    ClusterIP      10.43.0.1       <none>          443/TCP          26h
-mongo         ClusterIP      None            <none>          27017/TCP        26h
 photo-album   LoadBalancer   10.43.134.178   192.168.11.30   5000:31604/TCP   25h
 
 ```

@@ -36,7 +36,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: album
+      app: <APPLICATION_NAME>
   template:
     metadata:
       labels:

@@ -21,7 +21,7 @@ clusters:
 contexts:
 - context:
     cluster: default
-    namespce: student<NUMBER>
+    namespace: student<NUMBER>
     user: default
   name: default
 current-context: default

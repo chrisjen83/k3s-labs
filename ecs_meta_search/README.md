@@ -23,7 +23,9 @@ Lets apply this into your namespace.
 # kubectl create -f application-cfg-map.yml
 ```
 
+## Step 2:
 
+Now that you have the application deployed with its configurations, lets access the 
 
 
 
