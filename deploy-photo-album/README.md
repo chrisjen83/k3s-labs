@@ -1,18 +1,60 @@
-# Deploy a Photo Album web page on K3s
+# Deploy a Photo Album web page
 
-This lab will introduce the concepts of pods, container images from a remote registry (DockerHub), S3 non-persistent storage, and Kubernetes networking. Your web page will be connecting to ECS S3 storage to upload all of your full size photo's and thumbnails. MongoDB will hold a reference to all images and store the titles and comments.
+<img src="/home/christopher/git/k3s-labs/deploy-photo-album/1200px-Flask_logo.svg.png" alt="1200px-Flask_logo.svg" style="zoom:50%;" />
 
-This lab will get you to deploy a basic Python Flask web server which will connect to your MongoDB Database you setup on the [previous lab](https://github.com/chrisjen83/k3s-labs/tree/master/deploy-mongo#setup-mongodb-on-k3s-arm64). Most of the web sites coding is done for you and all database connections are pre-entered.  You must have completed the previous lab and created a database called **mongodb**, the naming of the database is critical.
-
-> If you spelt or wrote the name of the database wrong the web page will fail to load with error "Internal Server Error".  If you look at the Flask logs in Kubernetes you will see error connecting to the database.
+This lab will get you to deploy a basic Python Flask web server which will connect to a MongoDB Database which was setup in the [previous lab](https://github.com/chrisjen83/k3s-labs/tree/master/deploy-mongo#setup-mongodb-on-k3s-arm64). Most of the web sites coding is done for you but you will need to enter your database table name and ECS Test Drive S3 API credentials into a Kubernetes configMap file.
 
 ## Step 1:
 
-You will need to use **k3s-photo-album-deploy-v2.yaml**, this is an application deployment file for Kubernetes.  This yaml file will download the docker image photo_album-arch:v2 from DockerHub and create a container with in a pod called photo-album.  This this deployment we will create a service which will expose the flask web server out to the world through a load balancer inside of Kubernetes.
+You will need to create a database table in the MongoDB server which was previously deployed.  Lets log into MongoDB Pod via an interactive shell.
 
-Lets get started...
+```
+kubectl --namespace default get pods
+kubectl --namespace default exec -it <MONGODB_POD_NAME> sh
+```
 
-As you did in the [previous lab](https://github.com/chrisjen83/k3s-labs/tree/master/deploy-mongo#setup-mongodb-on-k3s-arm64) you will need to edit **k3s-photo-album-deploy-v2.yaml** and include the namespace corresponding to your allocated namespace for both the service and the deployment.
+Once you have a sh terminal inside the mongoDB Pod log into the mongoDB Server by typing mongo
+
+```
+#mongo <ENTER>
+```
+
+Once you have a **>** prompt type the following command to create a table to use with your web site. Replace <TABLE_NAME> with a name you wish to use appended with your student number at the end.
+
+```
+>use <TABLE_NAME>
+> exit
+# exit
+```
+
+Write down or remember your table name as this information will need to be use later in this lab.
+
+## Step 2:
+
+To deploy your web page application there are several components that need to be configured in order for your application to function correctly.
+
+- [ ] **configMap** created with your MongoDB Table name, ECS Test Drive creidentuals and MongoDB Server address.  Your pod will advertise enviroment variables to the container which flask will read.
+- [ ] **Service (LoadBalancer)** is need to be linked to your web page pod to expose Flasks port 5000 externally of the K3s cluster and assign an external IP address. If this was not created you could not access the web page on your computer.
+- [ ] **Deployment** which will define the desired state of your web server, link it to the Service and import the enviroment variables from the configMap.
+
+Use **k3s-photo-album-deploy-v4.yaml**, this YAML has all of the needed components listed above in the one file.  Kubernetes will read this file and configure your configMap, Service and Deploy your pod.
+
+Lets get started, in the below code snippet when I use **< .. >** this means you will need to configure these settings with your details.
+
+```
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: photo-album-configmap
+  namespace: <INSERT_YOUR_NAMESPACE_NAME>
+data:
+  DB_NAME: <CREATED_DB_ABLE_NAME>
+  MONGO_SERVER: mongodb://<POD_NAME>:27017
+  ecs_endpoint_url: https://object.ecstestdrive.com
+  ecs_access_key_id: <YOUR_S3_ACCESS_KEY>
+  ecs_secret_key: <YOUR_S3_SECRET>
+  ecs_bucket_name: <BUCKET_NAME>
+```
 
 ```
 apiVersion: v1
@@ -21,7 +63,13 @@ metadata:
   name: photo-album
   namespace: <INSERT_YOUR_NAMESPACE_NAME>
   labels:
-    app: album
+    app: <APPLICATION_NAME>
+    spec:
+  type: LoadBalancer
+  ports:
+  - port: 5000
+  selector:
+    app: <APPLICATION_NAME>
 ```
 
 ```
@@ -31,15 +79,46 @@ metadata:
   name: photo-album
   namespace: <INSERT_YOUR_NAMESPACE_NAME>
   labels:
-    app: album
+    app: <APPLICATION_NAME>
 ```
 
-## Step 2:
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: photo-album
+  namespace: <INSERT_YOUR_NAMESPACE_NAME>
+  labels:
+    app: <APPLICATION_NAME>
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: <APPLICATION_NAME>
+  template:
+    metadata:
+      labels:
+        app: <APPLICATION_NAME>
+    spec:
+      containers:
+      - name: photo-album
+        image: chrisjen83/photo_album-arch:v4
+        imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: photo-album-configmap
+        ports:
+        - containerPort: 5000
+```
 
-Now it is time to deploy **k3s-photo-album-deploy-v2.yaml** into your namespace and let the magic happen.
+
+
+## Step 3:
+
+Now it is time to deploy **k3s-photo-album-deploy-v4.yaml** into your namespace and let the magic happen.
 
 ```
-kubectl --namespace <YOUR_NAMESPACE> apply -f k3s-photo-album-deploy-v2.yaml
+kubectl apply -f k3s-photo-album-deploy-v4.yaml
 ```
 
 Once this has executed successfully lets take a look at what Kubernetes is doing.
@@ -47,7 +126,7 @@ Once this has executed successfully lets take a look at what Kubernetes is doing
 First lets see if Kubernetes has created a pod, to do this issue the following command.
 
 ```
-kubectl --namespace <YOUR_NAMESPACE> get pods
+kubectl  get pods
 ```
 
 Your output should look similar to below, take a look at the STATUS column.  This will tell you what is happening inside the pod.
@@ -61,7 +140,7 @@ photo-album-6dfdfb6597-cpfxk   1/1     Running   0          23h
 But to really understand what is happening we need to describe the pod, so lets do that.
 
 ```
-kubectl --namespace <YOUR_NAMESPACE> describe pods <PHOTO-ALBUM_POD_NAME>
+kubectl describe pods <PHOTO-ALBUM_POD_NAME>
 ```
 
  You will receive an output similar to below.
@@ -125,10 +204,10 @@ If there are any errors pulling the image or starting the pod the Event section 
 
 At this point I am assuming your pod has started, now you might ask what is the IP address to access this web page? 
 
-Lets take a look at that Service we created inside our deployment YAML.  Type the below command to find out.
+Lets take a look at that service we created inside our deployment YAML.  Type the below command to find out.
 
 ```
-kubectl --namespace <YOUR_NAMESPACE> get svc
+kubectl <YOUR_NAMESPACE> get svc
 ```
 
 ```
@@ -139,7 +218,6 @@ photo-album   LoadBalancer   10.43.134.178   192.168.11.30   5000:31604/TCP   25
 
 ```
 
-Look for the line which has the name of your app you deployed photo-album.  You will notice that the service **TYPE** is LoadBalancer and the **EXTERNAL-IP** is an address on the 192.168.11.x/24 network and the PORT is 5000.
+Look for the line which has the name of your app you deployed.  You will notice that the service **TYPE** is LoadBalancer and the **EXTERNAL-IP** is an address on the 192.168.11.x/24 network and the PORT is 5000.
 
-Great lets load this web page from your laptop and start uploading photo's to your album.
-
+Great lets load this web page from your laptop and start uploading photo's to your album.  Your address will be http://192.168.11.x:5000
