@@ -6,22 +6,39 @@ This repository has been designed to guide you through basic steps of Kubernetes
 
 To get the most out of these tutorials please follow the below labs in order.
 
-#### Setup Up Lab Environment
+### Setup Up Lab Environment
 
-[Kubectl Config File](https://github.com/chrisjen83/k3s-labs/tree/master/admin-namespace)
+​	[Download Lab VM](https://github.com/chrisjen83/k3s-labs-vm)
 
-#### Setup Kubernetes
+​	[Kubectl Config File](https://github.com/chrisjen83/k3s-labs/tree/master/admin-namespace)
+
+​	Once you have your lab VM running clone via git this repo into the VM.  We will be using these files for all 	of the tutorials.
+
+```
+# mkdir -p ~/git/ 
+# cd ~/git
+# git clone https://github.com/chrisjen83/k3s-labs.git
+```
+
+### Docker Labs
+
+​	[Deploy a Docker Image](https://github.com/chrisjen83/k3s-labs/tree/master/Docker)
+
+​	[Understand Docker Networking](https://github.com/chrisjen83/k3s-labs/blob/master/Docker/Docker-Networking.md)
+
+### Setup Kubernetes
 
 1. [Deploy a K3s Load Balancer](https://github.com/chrisjen83/k3s-labs/tree/master/deploy-metallb)
 2. [Deploy MongoDB ARM64](https://github.com/chrisjen83/k3s-labs/tree/master/deploy-mongo)
 
-#### Photo Album Application
+   #### Dell EMC ECS Metadata Search GUI
 
-3. [Deploy Photo Album Web Page](https://github.com/chrisjen83/k3s-labs/tree/master/deploy-photo-album)
+   1. [Deploy ECS Metadata Search](https://github.com/chrisjen83/k3s-labs/tree/master/ecs_meta_search)
 
-#### Dell EMC ECS Metadata Search GUI
+   #### Photo Album Application
 
-1. [Deploy ECS Meta Search Web Page](https://github.com/chrisjen83/k3s-labs/tree/master/ecs_meta_search)
+   1. [Deploy Photo Album Web Page](https://github.com/chrisjen83/k3s-labs/tree/master/deploy-photo-album)
+   2. https://github.com/chrisjen83/k3s-labs/tree/master/ecs_meta_search)
 
 #### Handy Links
 

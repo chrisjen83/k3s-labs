@@ -35,7 +35,7 @@ Server:
 
 ```
 
-Next we will pull the container image from DockerHub. Use the below command to run the EC Metadata Search web server
+Next we will pull a container image from DockerHub. Use the below command to run the ECS Metadata Search web server
 
 ```
 # docker run -d --rm -p 5000:5000 chrisjen83/ecs-meta-search:v1
@@ -59,7 +59,9 @@ Status: Downloaded newer image for chrisjen83/ecs-meta-search:v1
 975a4f62368f8af9c25f3cea0a05d3facf96948224943a19f7b5a0df70bb8caa
 ```
 
-By now you should see something similar to above.  At the moment you can assume that your docker image is up and running, but lets check this out.
+By now you should see something similar to above. 
+
+Assume that your docker image is up and running, but lets check this out.
 
 Use the below command to see what is running in Docker.
 
@@ -120,6 +122,8 @@ Now lets stop run the container and let docker recycle the image.
 ```
 
 If your container has stopped successfully when you do docker ps there should be not running containers listed.
+
+[Next Lab Docker Networking](https://github.com/chrisjen83/k3s-labs/blob/master/Docker/Docker-Networking.md)
 
 [Return to Main Page](https://github.com/chrisjen83/k3s-labs)
 
