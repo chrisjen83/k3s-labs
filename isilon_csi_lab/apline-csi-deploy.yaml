@@ -19,16 +19,11 @@ spec:
         image: apline:latest
         ports:
         - containerPort: 3000
-          volumeMounts:
-            - name: isilon-csi-storage
-              mountPath: /mnt/isilon
-  volumeClaimTemplates:
-  - metadata:
-      name: isilon-csi-storage
-      annotations:
-        storageClassName: "isilon"
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 10Gi
+        volumeMounts:
+        - name: isilon-data
+          mountPath: /mnt/isilon
+      restartPolicy: Always
+      volumes:
+      - name: isilon-data
+        persistentVolumeClaim:
+          claimName: isilon-csi-pvc
