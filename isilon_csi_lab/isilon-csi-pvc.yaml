@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: isilon-csi-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: isilon
+  resources:
+    requests:
+      storage: 20Gi
