@@ -15,7 +15,7 @@ To get the most out of these tutorials please follow the below labs in order.
 ​	Once you have your lab VM running clone via git this repo into the VM.  We will be using these files for all 	of the tutorials.
 
 ```
-# mkdir -p ~/git/ 
+# mkdir -p ~/git/
 # cd ~/git
 # git clone https://github.com/chrisjen83/k3s-labs.git
 ```
@@ -44,5 +44,4 @@ To get the most out of these tutorials please follow the below labs in order.
 
 When working with YAML spaces are a critical part of the language.  One wrong space and the YAML is unusable.  I have found a very good YAML formatter which helps you resolve strange syntax and formatting errors in your YAML.  If during the course you have a YAML format or syntax error give this website a go.
 
-[YAML Linter](https://jsonformatter.org/yaml-formatter)
-
+[Kubernetes YAML Linter](https://kubeyaml.com/)

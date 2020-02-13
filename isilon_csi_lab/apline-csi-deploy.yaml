@@ -1,29 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: apline-csi-isilon
+  name: centoslight01-dep
   labels:
-    app: alpine
+    app: centoslight01-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: alpine
+      name: centoslight01-pod
+      app: centoslight01-app
+  strategy:
+    type: Recreate
   template:
     metadata:
+      name: centoslight01-pod
       labels:
-        app: apline
+        name: centoslight01-pod
+        app: centoslight01-app
     spec:
       containers:
-      - name: apline
-        image: apline:latest
-        ports:
-        - containerPort: 3000
-        volumeMounts:
-        - name: isilon-data
-          mountPath: /mnt/isilon
-      restartPolicy: Always
+        - name: centoslight01
+          image: koutsane/koutsane:centoslight
+          ports:
+            - containerPort: 22
+          volumeMounts:
+            - mountPath: "/mnt/isilon"
+              name: centoslight01-vol01
       volumes:
-      - name: isilon-data
-        persistentVolumeClaim:
-          claimName: isilon-csi-pvc
+        - name: centoslight01-vol01
+          persistentVolumeClaim:
+            claimName: isilon-csi-pvc
