@@ -6,28 +6,33 @@ import json
 from pymongo import MongoClient
 from PIL import Image
 
-#Get from K8s ConfigMap values for MongoDB Database
-MONGO_SERVER = os.environ.get( "MONGO_SERVER", None)
-DB_NAME = os.environ.get( "DB_NAME", None)
-client = MongoClient( MONGO_SERVER, 27017)
+# Get from K8s ConfigMap values for MongoDB Database
+MONGO_SERVER = os.environ.get("MONGO_SERVER", None)
+DB_NAME = os.environ.get("DB_NAME", None)
+client = MongoClient(MONGO_SERVER, 27017)
 
-#Get from K8s ConfigMap values for S3 connector
-ecs_endpoint_url = os.environ.get( "ecs_endpoint_url", None)
-ecs_access_key_id = os.environ.get( "ecs_access_key_id", None)
-ecs_secret_key = os.environ.get( "ecs_secret_key", None)
-ecs_bucket_name = os.environ.get( "ecs_bucket_name", None)
+# Get from K8s ConfigMap values for S3 connector
+ecs_endpoint_url = os.environ.get("ecs_endpoint_url", None)
+ecs_access_key_id = os.environ.get("ecs_access_key_id", None)
+ecs_secret_key = os.environ.get("ecs_secret_key", None)
+ecs_bucket_name = os.environ.get("ecs_bucket_name", None)
 
 # Get database connection with database name
 db = client[DB_NAME]
 
 # Remove any existing documents in photos collection
-# db.photos.delete_many({})   # Comment this line if you don't want to remove documents each time you start the app
+# db.photos.delete_many({})
+# Comment this line if you don't want to remove documents each time you start the app
 
 # Retrieve all photos records from database
+
+
 def get_photos():
     return db.photos.find({})
 
 # Insert form fields into database
+
+
 def insert_photo(request, filename):
     title = request.form['title']
     comments = request.form['comments']
@@ -42,7 +47,7 @@ def insert_photo(request, filename):
                           'photo': photo_url, 'thumb': thumbnail_url})
 
 
-def upload_photo(file, filename):
+def upload_photo(file, filename, contenttype):
     # Open a session with ECS using the S3 API
     session = boto3.resource(service_name='s3', aws_access_key_id=ecs_access_key_id,
                              aws_secret_access_key=ecs_secret_key, endpoint_url=ecs_endpoint_url)
@@ -65,7 +70,7 @@ def upload_photo(file, filename):
 
     # Upload the original image to ECS
     session.Object(ecs_bucket_name, filename).put(
-        Body=open("uploads/" + filename, 'rb'), ACL='public-read')
+        Body=open("uploads/" + filename, 'rb'), ACL='public-read', ContentType = contenttype)
 
     # Upload the thumbnail to ECS
     session.Object(ecs_bucket_name, thumbfile).put(

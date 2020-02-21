@@ -27,3 +27,43 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: student6
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: student7
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: student8
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: student9
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: student10
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: student11
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: student12
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: student13
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: student14

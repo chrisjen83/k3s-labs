@@ -5,7 +5,7 @@ metadata:
   namespace: <INSERT_YOUR_NAMESPACE_NAME>
 data:
   DB_NAME: <CREATED_DB_NAME>
-  MONGO_SERVER: mongodb://<POD_NAME>.<NAMESPACE>.svc.cluster.local:27017   #Example mongodb://mongo.default.svc.cluster.local:27017
+  MONGO_SERVER: mongodb://<APP_NAME>.<NAMESPACE>.svc.cluster.local:27017   #Example mongodb://mongo.default.svc.cluster.local:27017
   ecs_endpoint_url: https://object.ecstestdrive.com
   ecs_access_key_id: <YOUR_S3_ACCESS_KEY>
   ecs_secret_key: <YOUR_S3_SECRET>
