@@ -16,10 +16,16 @@ To understand the uses and limitations of a StatefulSet use the below link.
 
 ## Step 1:
 
-###### Deploy local storage PVC
+###### Deploy local storage PVC in K3s
 
 ```kubectl
 kubectl apply -f local-storage-pvc.yaml
+
+###### Deploy local storage PVC in MicroK8s
+
+```kubectl
+kubectl apply -f microk8s-pvc.yaml
+
 ```
 
 ###### Deploy MongoDB headless service and MongoDB server
@@ -28,8 +34,16 @@ We will only be deploying one MongoDB Server within the K3s Cluster. All other s
 
 Follow the below commands to deploy and monitor what is happening.
 
+###### K3s
+
 ```
 kubectl  apply -f mongo-statefulset-v1.yaml
+kubectl --namespace default get pods
+```
+###### MicroK8s
+
+```
+kubectl  apply -f mongo-statefulset-v2.yaml
 kubectl --namespace default get pods
 ```
 
@@ -87,10 +101,10 @@ Containers:
       /var/run/secrets/kubernetes.io/serviceaccount from default-token-5bf7l (ro)
 Conditions:
   Type              Status
-  Initialized       True 
-  Ready             True 
-  ContainersReady   True 
-  PodScheduled      True 
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
 Volumes:
   mongo-persistent-storage:
     Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
@@ -146,15 +160,15 @@ For more comprehensive documentation, see
 	http://docs.mongodb.org/
 Questions? Try the support group
 	http://groups.google.com/group/mongodb-user
-Server has startup warnings: 
-2020-01-16T05:48:36.609+0000 I STORAGE  [initandlisten] 
+Server has startup warnings:
+2020-01-16T05:48:36.609+0000 I STORAGE  [initandlisten]
 2020-01-16T05:48:36.609+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
 2020-01-16T05:48:36.609+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
-2020-01-16T05:48:38.833+0000 I CONTROL  [initandlisten] 
+2020-01-16T05:48:38.833+0000 I CONTROL  [initandlisten]
 2020-01-16T05:48:38.833+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
 2020-01-16T05:48:38.833+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
 2020-01-16T05:48:38.833+0000 I CONTROL  [initandlisten] ** WARNING: You are running this process as the root user, which is not recommended.
-2020-01-16T05:48:38.833+0000 I CONTROL  [initandlisten] 
+2020-01-16T05:48:38.833+0000 I CONTROL  [initandlisten]
 ---
 Enable MongoDB's free cloud-based monitoring service, which will then receive and display
 metrics about your deployment (disk utilization, CPU, operation statistics, etc).
@@ -193,7 +207,7 @@ You should see a similar output if initiate is successful.
 		}
 	}
 }
-rs0:OTHER> 
+rs0:OTHER>
 rs0:PRIMARY>
 ```
 
