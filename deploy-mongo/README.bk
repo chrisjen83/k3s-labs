@@ -16,6 +16,19 @@ To understand the uses and limitations of a StatefulSet use the below link.
 
 ## Step 1:
 
+###### Deploy local storage PVC in K3s
+
+```kubectl
+kubectl apply -f local-storage-pvc.yaml
+```
+
+###### Deploy local storage PVC in MicroK8s
+
+```kubectl
+kubectl apply -f microk8s-pvc.yaml
+
+```
+
 ###### Deploy MongoDB headless service and MongoDB server
 
 We will only be deploying one MongoDB Server within the K3s Cluster. All other students will create their table.

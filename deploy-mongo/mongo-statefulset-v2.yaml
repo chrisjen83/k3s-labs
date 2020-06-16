@@ -52,7 +52,6 @@ spec:
       name: mongo-persistent-storage
       namespace: default
       annotations:
-        storageClassName: "microk8s-hostpath"
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
