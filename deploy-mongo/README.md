@@ -20,6 +20,7 @@ To understand the uses and limitations of a StatefulSet use the below link.
 
 ```kubectl
 kubectl apply -f local-storage-pvc.yaml
+```
 
 ###### Deploy local storage PVC in MicroK8s
 
