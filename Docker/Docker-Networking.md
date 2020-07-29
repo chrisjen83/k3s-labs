@@ -23,7 +23,7 @@ cbc82ac11e3c        none                null                local
 
 ```
 
-You will now see your network lab-net, the default bridge network of docker called docker0.  The host network is one which you can attach your containers to to get direct access to your VM machines physical network.
+You will now see your network lab-net, the default bridge network of docker called docker0.  The host network is one which you can attach your containers to get direct access to your VM machines physical network.
 
 #### Step 2:
 
